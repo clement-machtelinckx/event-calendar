@@ -25,9 +25,7 @@ if (isset($_SESSION['username'])) {
 <body>
 
 <?php
-if (isset($userData)) {
-    echo "Bienvenue " . $userData["nom"] . " " . $userData["prenom"];
-}
+include '../header.php';
 ?>
 
     <div>
@@ -45,7 +43,7 @@ if (isset($userData)) {
             <input type="submit" value="Enter">
         </form>
     </div>
-
+    <a href="calendar.php">calendrier<a>
     <a href="deconnexion.php">deconnexion</a>
 
     
