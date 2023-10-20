@@ -182,4 +182,18 @@ class User {
 
         }
     }
+
+    public function saveEvent($id_user, $date, $titre, $description){
+        
+        $this->connec();
+
+        $sql = "INSERT INTO event (date, titre, description, id_user) VALUES (?, ?, ?, $id_user)";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(1, $date, PDO::PARAM_STR);
+        $stmt->bindParam(2, $titre, PDO::PARAM_STR);
+        $stmt->bindParam(3, $description, PDO::PARAM_STR);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);        
+    }
 }
