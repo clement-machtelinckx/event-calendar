@@ -51,6 +51,9 @@ function saveEvent(date, titre, description) {
 
     fetch('../mod/mod_saveEvent.php', {
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
         body: data
     })
     .then(response => response.text())
@@ -63,11 +66,57 @@ function saveEvent(date, titre, description) {
     });
 }
 
-const date = '2023-10-20';
+// Ajoutez cette fonction pour ouvrir la fenêtre pop-up
+function openPopup() {
+    // Créez une fenêtre pop-up
+    const popup = window.open('', 'popup', 'width=400,height=300');
+
+    // Ajoutez un formulaire dans la fenêtre pop-up
+    popup.document.write('<h3>Ajouter un événement</h3>');
+    popup.document.write('<form id="eventForm">');
+    popup.document.write('Date : <input type="date" id="popupDate"><br>');
+    popup.document.write('Titre : <input type="text" id="popupTitre"><br>');
+    popup.document.write('Description : <textarea id="popupDescription"></textarea><br>');
+    popup.document.write('<input type="submit" value="Enregistrer">');
+    popup.document.write('</form>');
+
+    // Gérez la soumission du formulaire dans la fenêtre pop-up
+    popup.document.getElementById('eventForm').onsubmit = function (event) {
+        event.preventDefault();
+        const popupDate = popup.document.getElementById('popupDate').value;
+        const popupTitre = popup.document.getElementById('popupTitre').value;
+        const popupDescription = popup.document.getElementById('popupDescription').value;
+        saveEvent(popupDate, popupTitre, popupDescription);
+        popup.close();
+    };
+}
+
+function showEvent(){
+
+    fetch('../mod/mod_showEvent.php')
+    .then(response => response.json())
+    .then(data => {
+        // Utilisez les données JSON (data) comme vous le souhaitez ici
+        console.log(data);
+    })
+    .catch(error => {
+        console.error('Une erreur s\'est produite : ', error);
+    });
+
+}
+
+// Vous pouvez maintenant appeler openPopup lorsque vous cliquez sur un bouton par exemple.
+const openPopupButton = document.getElementById("openPopupButton");
+openPopupButton.addEventListener("click", openPopup);
+
+
+const date = '2023-10-26';
 const titre = 'Mon événement';
 const description = 'Description de l\'événement';
 
-saveEvent(date, titre, description);
+// saveEvent(date, titre, description);
+
+
 
 
 

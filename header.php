@@ -1,8 +1,8 @@
 
-
+<link rel="stylesheet" type="text/css" href="style/style_header.css">
 <?php
 session_start();
-include '../class/User.php'; // Assurez-vous d'inclure correctement le fichier User.php
+include 'class/User.php'; // Assurez-vous d'inclure correctement le fichier User.php
 
 
 $user = new User(); // Créez une instance de la classe User

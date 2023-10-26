@@ -196,4 +196,20 @@ class User {
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);        
     }
+
+    public function getAllEvent($id_user){
+        $this->connec();
+    
+        $sql = "SELECT date, titre, description
+                FROM event
+                WHERE id_user = :id_user";
+    
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id_user', $id_user, PDO::PARAM_STR);
+        $stmt->execute();
+        $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        return $events; // Retournez le tableau des événements
+    }
+    
 }
